@@ -1,0 +1,13 @@
+pyculiarity
+arch
+pmdarima
+causalimpact
+Prophet
+xgboost
+lightgbm
+tensorflow
+croston
+pystan==2.19.1.1 
+fbprophet
+plotly
+ruptures
