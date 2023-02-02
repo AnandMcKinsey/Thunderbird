@@ -15,7 +15,7 @@ def model_list_function(ti,series_flag,oos_length,list_of_models,index,row_count
   ti_mv = ti_mv.drop(['Header'],axis=1)
   ti.index = ti['Header']
   ti = ti['Value'].copy()
-  multivariate_models = ['arima_mv','xgboost_mv','lightgbm_mv','causalimpact_mv','prophet_mv','linearregression_mv','olsregression_mv']
+  multivariate_models = ['arima_mv','xgboost_mv','random_forest_mv','lightgbm_mv','causalimpact_mv','prophet_mv','linearregression_mv','olsregression_mv']
   model_list=list()
   val_forecast_list=collections.OrderedDict()
   oos_forecast_list=collections.OrderedDict()

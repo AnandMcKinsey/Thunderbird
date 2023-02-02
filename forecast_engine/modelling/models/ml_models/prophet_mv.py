@@ -102,6 +102,6 @@ def prophet_mv(ti,h,row_counter,debug_models,variable_list,n_splits=3,validation
     date_ = ti['ds'].map(lambda x: x.strftime("%Y - %m")).reset_index(drop=True)
     total_fit=pd.concat([date_, pd.Series(total_fit-min_series), pd.Series(['prophet_mv']*len(ti))], axis=1)
     total_fit.columns = ['date_', 'forecast','method']
-    
-    return {'forecast':forecast1,'oos forecast':forecast2,'var_coeff':var_coeff,'fitted_values_all':total_fit}
+    feature_scores = {'prophet_mv':(pd.Series(index=ti.iloc[:,1:].columns).sort_values(ascending=False))}
+    return {'forecast':forecast,'oos forecast':forecast2,'var_coeff':var_coeff,'fitted_values_all':total_fit,"feature_scores":feature_scores}
 

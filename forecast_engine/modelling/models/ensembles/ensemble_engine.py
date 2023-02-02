@@ -29,7 +29,7 @@ def simple_mean_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forecas
     ensemble_anomaly_removed = ensemble[~ensemble['date_'].str.contains('|'.join(anomalous_months),regex=True)]
   else: 
     ensemble_anomaly_removed = ensemble.copy()
-  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], smape_weights)
+  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], pd.Series([1]*len(ensemble_anomaly_removed),name='weights'))
 #   print(ensemble)
   ensemble_forecast=oos_forecast.copy()
   ensemble_forecast.loc[:,'forecast']=(pd.DataFrame(all_X_futures)[~pd.DataFrame(all_X_futures).T.isin([np.inf, -np.inf]).any(0)].T).mean(axis=1)
@@ -67,7 +67,7 @@ def weighted_mean_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forec
     ensemble_anomaly_removed = ensemble[~ensemble['date_'].str.contains('|'.join(anomalous_months),regex=True)]
   else: 
     ensemble_anomaly_removed = ensemble.copy()
-  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], smape_weights)
+  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], pd.Series([1]*len(ensemble_anomaly_removed),name='weights'))
 #   print(ensemble)
   
   ensemble_forecast=oos_forecast.copy()
@@ -127,7 +127,7 @@ def linear_regressor_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_fo
     ensemble_anomaly_removed = ensemble[~ensemble['date_'].str.contains('|'.join(anomalous_months),regex=True)]
   else: 
     ensemble_anomaly_removed = ensemble.copy()
-  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], smape_weights)
+  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], pd.Series([1]*len(ensemble_anomaly_removed),name='weights'))
 #   print(ensemble)
   
 #   ensemble.loc[:,'Forecast_accuracy']=smape(ensemble['Actual'],ensemble['forecast'])
@@ -182,7 +182,7 @@ def bagging_regressor_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_f
     ensemble_anomaly_removed = ensemble[~ensemble['date_'].str.contains('|'.join(anomalous_months),regex=True)]
   else: 
     ensemble_anomaly_removed = ensemble.copy()
-  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], smape_weights)
+  ensemble.loc[:,'Forecast_accuracy']=error_metrics.wsmape(ensemble_anomaly_removed['Actual'],ensemble_anomaly_removed['forecast'], pd.Series([1]*len(ensemble_anomaly_removed),name='weights'))
 #   print(ensemble)
   
 #   ensemble.loc[:,'Forecast_accuracy']=smape(ensemble['Actual'],ensemble['forecast'])

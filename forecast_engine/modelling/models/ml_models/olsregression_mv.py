@@ -11,15 +11,7 @@ def olsregression_mv(ti,h,row_counter,debug_models,variable_list,n_splits=3,vali
     from sklearn.metrics import mean_squared_error as mse
     import pandas as pd
     import numpy as np
-    
-#     import pickle
-#     if 'olsregression_mv' in debug_models:
-#       #print(ti)
-#       with open(ti_mv_pickle_path, 'wb') as f:  # Python 3: open(..., 'wb')
-#         pickle.dump([ti, h, row_counter, n_splits, variable_list, validation_window], f)
-# #   
-   # ti=ti.drop(['Market_Value'],axis=1)
-#     print("ti in ols:\n",ti)
+
     ti_original_cols=ti.columns
     ti=ti.copy()
     ti['previous_val'] = ti['Value'].shift(1)

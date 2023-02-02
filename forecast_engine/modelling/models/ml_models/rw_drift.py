@@ -60,8 +60,8 @@ def rw_drift(ti,h,row_counter,debug_models,variable_list,n_splits=3,validation_w
       rest_coeff.columns=['Model','Date','Driver','Impact']
       var_coeff=pd.concat([var_coeff,rest_coeff],axis=0)
     
-    # if (np.sum(forecast1['forecast'].isnull())) or (np.sum(forecast2['forecast'].isnull())) or np.sum(np.isinf(forecast1['forecast'])) or np.sum(np.isinf(forecast2['forecast'])):
-    #   raise Exception('NaN in output')
+    if (np.sum(forecast1['forecast'].isnull())) or (np.sum(forecast2['forecast'].isnull())) or np.sum(np.isinf(forecast1['forecast'])) or np.sum(np.isinf(forecast2['forecast'])):
+      raise Exception('NaN in output')
     
     if 'rw_drift' in debug_models: 
       print(forecast1)

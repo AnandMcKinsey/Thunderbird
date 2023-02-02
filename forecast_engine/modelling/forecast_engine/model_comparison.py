@@ -40,12 +40,11 @@ def model_comparison_function(ti, series_flag,row_counter,list_of_models,debug_f
   anomalous_months = []
 
   if outlier_flag == 1:
-      try:
-          if series_flag==1:
+      if series_flag==1:
               tad = anomaly_pipeline.twitteranomalydetection(ti1,plot=False)
               anomalous_months = tad['anomalies'].index
               ti1['Value'][ti1['Header'].isin(anomalous_months)] = tad['anomalies']['expected_value'].values
-      except: pass
+      
 
   ######### VARIABLE SELECTION #########
   if select_variable_flag == 1:
@@ -87,30 +86,29 @@ def model_comparison_function(ti, series_flag,row_counter,list_of_models,debug_f
   oos_month=ti['Header'][row_counter-1]
   
   if outlier_flag == 1:
-    try:
-      if series_flag==1:
+    if series_flag==1:
         ti1 = ti1[~ti1.index.isin(anomalous_months)]
-    except: pass
-
-  ti_anomaly_removed = ti1[ti1.index.isin(list(val_forecast_list.values())[0]['forecast']['date_'])]
+    
   
   models_smape = OrderedDict()
   
-  if series_flag==1:  
-      smape_weights = pd.Series([1]*len(ti_anomaly_removed['Header']),name='weights')
-  else:
-      smape_weights = pd.Series([1]*len(ti_anomaly_removed['Header']),name='weights')
   
-  
-  for i in model_list:
-    y_pred = val_forecast_list[i]['forecast'].copy()
-    y_pred = y_pred[y_pred['date_'].isin(ti_anomaly_removed.index)]
-    y_act = ti_anomaly_removed[ti_anomaly_removed['Header'].isin(list(y_pred['date_']))]
-    if debug_flag==1:
-        print(i)
-        print(y_pred)    
+  validation_len = min([y for y in [len(val_forecast_list[x]['forecast']) for x in list(val_forecast_list.keys())]])
+  for i in val_forecast_list.keys():
+      val_forecast_list[i]['forecast'] = val_forecast_list[i]['forecast'][-validation_len:].reset_index(drop=True)
 
-    models_smape[i] = error_metrics.wsmape(y_act['Value'],y_pred['forecast'], smape_weights[0:len(y_act)])
+  smape_weights = pd.Series([1]*validation_len,name='weights')
+  for i in model_list:
+      y_pred = val_forecast_list[i]['forecast'].copy()
+      y_pred = y_pred[~y_pred['date_'].isin(anomalous_months)]
+      y_act = ti1[ti1['Header'].isin(list(y_pred['date_']))]
+      
+      if debug_flag==1:
+          print(i)
+          print(y_pred)    
+
+
+      models_smape[i] = error_metrics.wsmape(y_act['Value'],y_pred['forecast'], smape_weights[0:len(y_act)])
 
 
   dataf = pd.DataFrame.from_dict(models_smape, orient='index').reset_index()
@@ -149,14 +147,9 @@ def model_comparison_function(ti, series_flag,row_counter,list_of_models,debug_f
     ensemble_1=ensemble_engine.simple_mean_ensemble(oos_forecast, val_forecast, val_forecast_list, oos_forecast_list, list_of_models, smape_weights, anomalous_months)
     ensemble_2=ensemble_engine.weighted_mean_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forecast_list,list_of_models,dataf,smape_weights, anomalous_months)
     ensemble_3=ensemble_engine.linear_regressor_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forecast_list,list_of_models,smape_weights, anomalous_months)
-    try:
-      ensemble_4=ensemble_engine.bagging_regressor_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forecast_list,list_of_models,smape_weights, anomalous_months)
-      best_ensemble= pd.concat([val_forecast.iloc[0].T,ensemble_1.iloc[0].T,ensemble_2.iloc[0].T,ensemble_3.iloc[0].T,ensemble_4.iloc[0].T],axis=1).T [['Forecast_accuracy','type']].reset_index(drop=True)
-      ensemble_type=pd.Series(['val_forecast','ensemble_1','ensemble_2','ensemble_3','ensemble_4'],name='ensemble_type')
-    
-    except:
-      best_ensemble= pd.concat([val_forecast.iloc[0].T,ensemble_1.iloc[0].T,ensemble_2.iloc[0].T,ensemble_3.iloc[0].T],axis=1).T [['Forecast_accuracy','type']].reset_index(drop=True)
-      ensemble_type=pd.Series(['val_forecast','ensemble_1','ensemble_2','ensemble_3'],name='ensemble_type')
+    ensemble_4=ensemble_engine.bagging_regressor_ensemble(oos_forecast,val_forecast,val_forecast_list,oos_forecast_list,list_of_models,smape_weights, anomalous_months)
+    best_ensemble= pd.concat([val_forecast.iloc[0].T,ensemble_1.iloc[0].T,ensemble_2.iloc[0].T,ensemble_3.iloc[0].T],axis=1).T [['Forecast_accuracy','type']].reset_index(drop=True)
+    ensemble_type=pd.Series(['val_forecast','ensemble_1','ensemble_2','ensemble_3'],name='ensemble_type')
     
     
     

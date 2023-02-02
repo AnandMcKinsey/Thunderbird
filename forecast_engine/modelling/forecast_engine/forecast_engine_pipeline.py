@@ -24,8 +24,7 @@ def forecast_engine(ti, months_to_forecast,debug_flag,debug_models,list_of_model
   
   ti1, ti_key, variable_list, series_flag = utils.get_ti_in_shape(ti.copy())
   
-  ti = ti[2:]
-  ti = ti1.copy()
+  ti = ti1[2:]
   ts2 = datetime.datetime.now().timestamp()
     
   ti1 = utils.actual_imputation(ti.copy())
@@ -85,10 +84,11 @@ def forecast_engine(ti, months_to_forecast,debug_flag,debug_models,list_of_model
     var_coeff['key'] = var_coeff['d1_id'].astype(str)+var_coeff['d2_id'].astype(str)+var_coeff['d3_id'].astype(str)+var_coeff['d4_id'].astype(str)+var_coeff['d5_id'].astype(str)+var_coeff['d6_id'].astype(str)+var_coeff['kpi_id'].astype(str)
   except: pass
   
-  ti_imputed = ti[ti['Header'].isin(var_coeff['Date'].unique().tolist())]
-  ti_imputed = pd.melt(ti_imputed, id_vars = 'Header')
-  ti_imputed.columns = ['Date','Driver','Imputed_Value']
+ 
   try:
+    ti_imputed = ti[ti['Header'].isin(var_coeff['Date'].unique().tolist())]
+    ti_imputed = pd.melt(ti_imputed, id_vars = 'Header')
+    ti_imputed.columns = ['Date','Driver','Imputed_Value']
     var_coeff = pd.merge(var_coeff,ti_imputed,on = ['Date','Driver'])
   except:
     var_coeff = pd.DataFrame(columns=['index','d1_id','d2_id','d3_id','d4_id','d5_id','d6_id','kpi_id','currency_code','randNumCol','Model','Date','Driver','Impact','key','Imputed_Value'])
