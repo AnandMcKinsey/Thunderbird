@@ -167,7 +167,7 @@ def get_ti_in_shape(ti):
 def driver_imputation(ti):
   for cols in ti.columns[2:]:
     if (ti[cols]).isna().sum()>0:
-      ti[cols]=ti[cols].astype('float64').interpolate(method='linear')
+      ti[cols]=ti[cols].astype('float64').interpolate(method='linear').ffill().bfill()
     first_ind=ti[cols].first_valid_index()   
     if first_ind is None:
       first_ind = 0
@@ -180,7 +180,7 @@ def driver_imputation(ti):
 def actual_imputation(ti):
   for cols in ti.columns[1:2]:
     if (ti[cols]).isna().sum()>0:
-      ti[cols]=ti[cols].astype('float64').interpolate(method='linear')
+      ti[cols]=ti[cols].astype('float64').interpolate(method='linear').ffill().bfill()
     first_ind=ti[cols].first_valid_index()   
     if first_ind is None:
       first_ind = 0
