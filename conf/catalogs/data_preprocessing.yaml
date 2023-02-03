@@ -1,0 +1,23 @@
+data_preprocessing:
+  country: Mexico
+  inventory_file_path: <>
+  transaction_file_path: <>
+  sales_order_file_path: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Sales order
+  
+  drivers:
+    macro: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Macro-economics
+    weather: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Weather Data/Weather Data.xlsx
+
+
+output_file_path:
+    processed_data: <>
+    classifier_train: <>
+    univariate: <>
+    multivariate: <>
+    ensemble: <>
+    fitted_values: <>
+    model_list: <>
+    forecast_output: <>
+    
+     
+  

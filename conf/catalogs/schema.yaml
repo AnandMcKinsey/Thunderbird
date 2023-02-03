@@ -1,0 +1,38 @@
+schema:
+  classifier_train: 
+    index: string
+    model: string
+    flag: int
+
+  univariate: 
+    index: string
+    date_: string
+    forecast: float
+    method: string
+    
+
+  multivariate:
+    index: string
+    date_: string
+    forecast: float
+    method: string
+
+
+  ensemble:
+    index: string
+    date_: string
+    forecast: float
+    method: string
+
+
+  fitted_values:
+    index: string
+    date_: string
+    forecast: float
+    method: string
+
+
+
+  model_mape:
+    models: string
+    smape: float

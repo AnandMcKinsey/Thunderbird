@@ -1,0 +1,55 @@
+forecast_engineSettings:
+  debug_flag: 0
+  debug_models:
+    -
+    -
+  outlier_flag: 1
+  select_variable_flag: 0
+  all_at_once_flag: 1
+  months_to_forecast: 3
+  max_validation: 12
+  validation_window: 3
+  single_series: 0
+  multivariate_flag: 1
+  univariate:
+    - hw_ets_r_MNN
+    - hw_ets_ATA
+    - hw_ets_AFA
+    - hw_ets_ATN
+    - hw_ets_NFA
+    - hw_ets_NFN
+    - hw_ets_AFN
+    - hw_ets_r_MAA
+    - hw_ets_r_MAN
+    - hw_ets_r_MNA
+    - mean_model
+    - median_model
+    - naive
+    - naive_ets
+    - snaive
+    - snaive_twoseasons
+    - rw_drift
+    - croston
+    - arima
+    - garch
+    - linear_regression_mv
+    - xgboost_mv
+    - prophet
+    - causal_impact_mv
+    - light_gbm
+    - random_forest_mv
+  multivariate:
+    - linear_regression_mv
+    - arima_mv
+    - xgboost_mv
+    - prophet_mv
+    - olsregression_mv
+    - random_forest_mv
+    - light_gbm_mv
+    - causal_impact_mv
+  ensemble:
+    - simple_mean_ensemble
+    - weighted_mean_ensemble
+    - linear_regressor_ensemble
+    - bagging_regressor_ensemble
+    
