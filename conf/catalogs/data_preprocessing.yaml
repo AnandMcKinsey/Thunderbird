@@ -2,11 +2,11 @@ data_preprocessing:
   country: Mexico
   inventory_file_path: <>
   transaction_file_path: <>
-  sales_order_file_path: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Sales order
+  sales_order_file_path: <>
   
   drivers:
-    macro: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Macro-economics
-    weather: /Users/anand_k/Downloads/UPL/Demand forecasting datasets [DO NOT EDIT]/Weather Data/Weather Data.xlsx
+    macro: <>
+    weather: <>
 
 
 output_file_path:

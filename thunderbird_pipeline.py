@@ -35,7 +35,7 @@ def run_pipeline():
     logger.logger.info("model parameters loaded...")
 
     logger.logger.info("running forecast engine...")
-    thunderbird.thunderbird.switch_on('U00000000006032021')
+    thunderbird.thunderbird.switch_on()
     logger.logger.info("running forecast engine...")
     
 

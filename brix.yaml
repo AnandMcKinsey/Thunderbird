@@ -1,0 +1,58 @@
+uuid: 813bfb6d-fc83-4cf9-ac07-7995772d7cd1
+brix:
+  title: "Thunder Bird"
+  tldr: "Modelling a process (usually financial forecasting, demand forecasting, price prediction etc.) with a multi algorithmic engine using python"
+  tags:
+    - data preparation:ML workflow
+    - feature engineering:ML workflow
+    - feature selection:ML workflow
+    - hyperparameter optimisation:ML workflow
+    - infrastructure:ML workflow
+    - model selection:ML workflow
+    - model serving:ML workflow
+    - postprocessing:ML workflow
+    - preprocessing:ML workflow
+    - sampling:ML workflow
+    - reporting:ML workflow
+    - categorical features:ML workflow
+    - cross-validation:ML workflow
+    - deployment:ML workflow
+    - technology:python
+    - causality:Methodology
+    - dimensionality reduction:Methodology
+    - ensemble methods:Methodology
+    - explainability:Methodology
+    - interpolation:Methodology
+    - MLE:Methodology
+    - outlier removal:Methodology
+    - random forest:Methodology
+    - recursive feature elimination:Methodology
+    - statistics:Methodology
+    - time series:Methodology
+    - supervised learning:Methodology
+    - time-series:Methodology
+    - XGBoost:Methodology
+    - LightGBM:Technology
+    - pandas:Technology
+    - parallel computing:Technology
+    - python:Technology
+    - Python:Technology
+    - scikit-learn:Technology
+    - yaml:Technology
+    - windows_compatible:Technology
+    - transfer learning:Technology
+    - DS R&D:Team
+    - anomaly detection:Use case
+    - analytics:Use case
+    - forecasting:Use case
+    - price forecasting:Use case
+    - timeseries modelling:Use case
+    - timeseries:Use case
+    - automl:Unclassified tags
+    - Predictive modeling:Unclassified tags
+    - Outliers detection:Unclassified tags
+    - multiprocessing:Unclassified tags
+  authors:
+    - anand_k@mckinsey.com
+  type: pipeline
+  version: 0.1.0
